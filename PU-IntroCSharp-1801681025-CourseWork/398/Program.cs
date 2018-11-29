@@ -12,7 +12,7 @@ namespace Zadacha4
         public static void Main(string[] args)
         {
             Console.WriteLine("Zadacha 4.");
-            Console.WriteLine("Enter the number of days for the month (<=31): ");
+            Console.Write("Vuvedi broyat na dnite v meseca (<=31): ");
 
             string inputDays = Console.ReadLine();
             int days;
@@ -20,8 +20,8 @@ namespace Zadacha4
             while (!(Int32.TryParse(inputDays, out days))
                   || (days < 1 || days > 32))
             {
-                Console.WriteLine("Not a valid ammount, higher than 1, lower than 32! ");
-                Console.WriteLine("Please re-enter the days: ");
+                Console.WriteLine("Nevalidna stoinost, trqbva da sa ot 1 do 31! ");
+                Console.WriteLine("Vuvedi dnite otnovo: ");
                 inputDays = Console.ReadLine();
             }
             int n = days;
@@ -54,10 +54,6 @@ namespace Zadacha4
             GeometricMean(B);
             GeometricMean(C);
 
-            //PrintAboveAvg(A);
-            //PrintAboveAvg(B);
-            //PrintAboveAvg(C);
-
             Console.ReadKey(true);
         }
 
@@ -86,13 +82,11 @@ namespace Zadacha4
             Console.WriteLine();
 
         }
-
-
         //Метод за пресмятане на средно на един масив
         public static void GeometricMean(int[] arr)
         {
             double total = 0;
-            double average;
+            double average=0;
 
             //Please use double of "s" variable
             foreach (double s in arr)
@@ -103,30 +97,14 @@ namespace Zadacha4
             {
                 average = total / arr.Length;
                 double geometricMean = average;
-                Console.WriteLine("Srednoto kolichestvo na valeji v stanciite (A), (B), i (C) e: " + geometricMean);
+                Console.WriteLine("Srednoto kolichestvo na valeji v stanciite (A), (B), i (C) e: " + geometricMean);  
             }
+            Console.WriteLine($"Valejite nad srednoto nivo sa: ");
             for (int i = 0; i < arr.Length; i++)
-                if (arr[i] > total)
-                    Console.WriteLine($"Valejite nad srednoto nivo sa: {arr[i]}");
-
-        }
-        //public static void PrintAboveAvg(int[] arr)
-        //{
-        //    // Find average 
-        //    double avg = 0;
-        //    foreach (double s in arr)
-        //       if (arr.Length > 0)
-        //    {
-        //        avg = avg / arr.Length;
-        //        double geometricMean = avg;
-        //        Console.WriteLine("Srednoto kolichestvo na valeji v stanciite (A), (B), i (C) e: " + geometricMean);
-        //    }
-        //    // Print elements greater than average 
-        //    for (int i = 0; i < arr.Length; i++)
-        //        if (arr[i] > avg)
-        //            Console.WriteLine(arr[i] + " ");
-        //}
-        
+                if (arr[i] > average)
+                {
+                    Console.WriteLine(arr[i]);
+                }
+        }        
     }
-
 }
