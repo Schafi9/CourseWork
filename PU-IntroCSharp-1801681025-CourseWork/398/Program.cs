@@ -1,98 +1,76 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace _398
+namespace Zadacha4
 {
     class Program
     {
-        static void Main(string[] args)
+
+        public static void Main(string[] args)
         {
             Console.WriteLine("Zadacha 4.");
-            Console.Write("Ednomeren masiv: "); int n = 1;
-            int[] A = new int[n];
-            //int[] B = new int[n];
-            //int[] C = new int[n];
+            Console.WriteLine("Enter the number of days for the month (<=31): ");
 
-            //RndArray(A);
-            //RndArray(B);
-            //RndArray(C);
+            string inputDays = Console.ReadLine();
+            int days;
+
+            while (!(Int32.TryParse(inputDays, out days))
+                  || (days < 1 || days > 32))
+            {
+                Console.WriteLine("Not a valid ammount, higher than 1, lower than 32! ");
+                Console.WriteLine("Please re-enter the days: ");
+                inputDays = Console.ReadLine();
+            }
+            int n = days;
+            int[] A = new int[n];
+            int[] B = new int[n];
+            int[] C = new int[n];
 
             FillArray(A);
-            //FillArray(B);
-            //FillArray(C);
+            FillArray(B);
+            FillArray(C);
 
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine("Masiv A");
+            Console.WriteLine("Stanciya A");
             Console.ForegroundColor = ConsoleColor.Gray;
             PrintArray(A);
 
-            //Console.ForegroundColor = ConsoleColor.DarkGreen;
-            //Console.WriteLine("Masiv B");
-            //Console.ForegroundColor = ConsoleColor.Gray;
-            //PrintArray(B);
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("Stanciya B");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            PrintArray(B);
 
-            //Console.ForegroundColor = ConsoleColor.DarkGreen;
-            //Console.WriteLine("Masiv C");
-            //Console.ForegroundColor = ConsoleColor.Gray;
-            //PrintArray(C);
-
-            Check5(A);
-            //Check5(B);
-            //Check5(C);
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("Stanciya C");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            PrintArray(C);
 
             Console.WriteLine();
 
             GeometricMean(A);
-            //GeometricMean(B);
-            //GeometricMean(C);
+            GeometricMean(B);
+            GeometricMean(C);
 
-            Console.WriteLine();
-            //TransformC(A, B, C);
-            //Console.WriteLine("Transformiraniq masiv C");
-            //PrintArray(C);
-
+            //PrintAboveAvg(A);
+            //PrintAboveAvg(B);
+            //PrintAboveAvg(C);
 
             Console.ReadKey(true);
         }
 
-
-        //static void RndArray(int[] arr)
-        //{
-
-        //    Random rng = new Random(1000);
-        //    for (int i = 0; i < arr.Length; i++)
-        //    {
-        //        arr[i] = rng.Next(0, 100);
-        //    }
-
-        //}
-
         //Метод за въвеждане в масив
-        static void FillArray(int[] arr)
+        public static void FillArray(int[] arr)
         {
 
             for (int i = 0; i < arr.Length; i++)
             {
                 int x = i + 1;
-                Console.Write("Vuvedi element [" + x + "] v masiva: ");
+                Console.Write("Vuvedi Valejite za [" + x + "] den: ");
                 arr[i] = int.Parse(Console.ReadLine());
             }
-        }
-
-        //Метод за проверка на тези числа, които се делят на 5 без остатък
-        //и да се намират на нечетна позиция в масива
-        static void Check5(int[] arr)
-        {
-            int counter = 0;
-
-            for (int i = 1; i < arr.Length; i = i + 2)
-            {
-                if (arr[i] % 5 == 0)
-                {
-                    counter++;
-                }
-            }
-
-            Console.WriteLine("V masiva ima: " + counter + " chisla koito se delqt na 5 bez ostatuk, koito da se namirat v nechetna poziciq v masiva.");
         }
 
         //Метод за изваждане на данните от масив
@@ -103,49 +81,52 @@ namespace _398
             for (int i = 0; i < arr.Length; i++)
             {
                 int x = i + 1;
-                Console.WriteLine("Element [" + x + "] na masiva e: " + arr[i] + " ");
+                Console.WriteLine("Den [" + x + "] - Valeji: " + arr[i] + " -litra na kv.m. ");
             }
             Console.WriteLine();
 
         }
 
 
-        //Метод за пресмятане на средно геометричното на един масив
-        static void GeometricMean(int[] arr)
+        //Метод за пресмятане на средно на един масив
+        public static void GeometricMean(int[] arr)
         {
-            double proizv = 1;
+            double total = 0;
+            double average;
 
-            //Произведението на всички елементи на масива
-            foreach (var item in arr)
+            //Please use double of "s" variable
+            foreach (double s in arr)
+
+                total += s;
+
+            if (arr.Length > 0)
             {
-                proizv *= item;
+                average = total / arr.Length;
+                double geometricMean = average;
+                Console.WriteLine("Srednoto kolichestvo na valeji v stanciite (A), (B), i (C) e: " + geometricMean);
             }
+            for (int i = 0; i < arr.Length; i++)
+                if (arr[i] > total)
+                    Console.WriteLine($"Valejite nad srednoto nivo sa: {arr[i]}");
 
-            //Цялото произзведение повдигнато на степен 1/n, където n е броя на елементите
-            double geometricMean = Math.Pow(proizv, 1.0 / arr.Length);
-
-            Console.WriteLine("Sredno geometrichnoto na masiva e :" + geometricMean);
         }
-
-        //Метод за преизчисление на масив C
-        static void TransformC(int[] A, int[] B, int[] C)
-        {
-
-            int y = C.Length - 1;
-            int z, c;
-            for (int i = 0; i < C.Length; i++)
-            {
-
-                //Променлива Z, която да помни разликата на елемните на масива отзад - напред
-                z = A[y] - B[y];
-                //Променлива С, която да помни разликата на елемните на масива отпред - назад
-                c = A[i] - B[i];
-
-                y--;
-
-                //Записване на произведението в масива С
-                C[i] = z * c;
-            }
-        }
+        //public static void PrintAboveAvg(int[] arr)
+        //{
+        //    // Find average 
+        //    double avg = 0;
+        //    foreach (double s in arr)
+        //       if (arr.Length > 0)
+        //    {
+        //        avg = avg / arr.Length;
+        //        double geometricMean = avg;
+        //        Console.WriteLine("Srednoto kolichestvo na valeji v stanciite (A), (B), i (C) e: " + geometricMean);
+        //    }
+        //    // Print elements greater than average 
+        //    for (int i = 0; i < arr.Length; i++)
+        //        if (arr[i] > avg)
+        //            Console.WriteLine(arr[i] + " ");
+        //}
+        
     }
+
 }
